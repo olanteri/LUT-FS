@@ -1,0 +1,25 @@
+{
+  "name": "coursework",
+  "version": "1.0.0",
+  "description": "node.js tutorial tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olanteri/LUT-FS.git"
+  },
+  "author": "Olli Rönkkö",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olanteri/LUT-FS/issues"
+  },
+  "homepage": "https://github.com/olanteri/LUT-FS#readme",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
