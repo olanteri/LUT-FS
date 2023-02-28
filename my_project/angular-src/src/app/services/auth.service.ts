@@ -8,11 +8,12 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  todo: any;
+  name: any;
 
   constructor(private http: HttpClient) { }
 
   registerUser(user: { name: String; email: String; username: String; password: String; }) {
-    console.log(user);
     const headers = {
       'content-type': 'application/json'
     }
@@ -26,25 +27,51 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/authenticate', user, {'headers': headers});
   }
 
-  getUsersName() {
+  getUser() {
+    var user = JSON.parse(localStorage.getItem('user') || "");
+    return user.name;
+  }
+
+  getTodos() {
     this.loadToken();
     const headers = {
       'content-type': 'application/json',
       'Authorization': this.authToken
     }
 
-    return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
-   }
+  return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
+  }
 
-   getTodos() {
+  deleteTodo(id: String) {
+    console.log(id);
     this.loadToken();
     const headers = {
       'content-type': 'application/json',
       'Authorization': this.authToken
     }
 
-    return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
-   }
+  return this.http.delete<String>('http://localhost:3000/users/todo/'+id, {'headers': headers});
+  }
+
+  updateTodos(todo: {title: String, description: String, name: String, isDone: boolean}) {
+    this.loadToken();
+    const headers = {
+      'content-type': 'application/json',
+      'Authorization': this.authToken
+    }
+
+  return this.http.put('http://localhost:3000/users/todo/:id', todo, {'headers': headers});
+  }
+
+  saveTodo(todo: {title: String, description: String, name: String, isDone: boolean}) {
+    this.loadToken();
+    const headers = {
+      'content-type': 'application/json',
+      'Authorization': this.authToken
+    }
+
+  return this.http.post('http://localhost:3000/users/todo/', todo, {'headers': headers});
+  }
 
   storeUserData(token: string, user: any) {
     localStorage.setItem('id_token', token);

@@ -85,11 +85,11 @@ router.get('/todo/:id', passport.authenticate('jwt', {session: false}), (req, re
 });
 
 // add todo 
-router.post('/todo/new', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/todo', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newTodo = new Todo ({
         title: req.body.title,
         description: req.body.description,
-        user: req.body.user.name,
+        name: req.body.name,
         isDone: false
     });
     Todo.addTodo(newTodo, (err, todo) => {
@@ -109,7 +109,7 @@ router.put('/todo/update/:id', passport.authenticate('jwt', {session: false}), (
         } else {
             todo.title = req.body.title;
             todo.description = req.body.description;
-            todo.user = req.body.user.name;
+            todo.user = req.body.name;
             todo.isDone = req.body.isDone;
             todo.save();
         }
@@ -118,7 +118,7 @@ router.put('/todo/update/:id', passport.authenticate('jwt', {session: false}), (
 });
 
 // delete todo
-router.delete('/todo/:id', (req, res, next) => {
+router.delete('/todo/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let todo = Todo.getTodoById(req.params.id, (err, todo) => {
         if (err) {
             res.json({success: false, msg:'Failed to delete todo'});

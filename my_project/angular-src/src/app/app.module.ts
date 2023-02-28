@@ -15,7 +15,6 @@ import { FlashMessagesService } from 'flash-messages-angular';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
-import { NewtodoComponent } from './newtodo/newtodo.component';
 import { UpdatetodoComponent } from './updatetodo/updatetodo.component';
 
 const appRoutes: Routes = [
@@ -23,9 +22,8 @@ const appRoutes: Routes = [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent},
-  {path:'todo', component: TodolistComponent},
-  {path:'todo/new', component: NewtodoComponent},
-  {path:'todo/update/:id', component: UpdatetodoComponent}
+  {path:'todo', component: TodolistComponent, canActivate:[AuthGuard]},
+  {path:'todo/:id', component: UpdatetodoComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -37,7 +35,6 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     TodolistComponent,
-    NewtodoComponent,
     UpdatetodoComponent
   ],
   imports: [
