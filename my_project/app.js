@@ -56,4 +56,4 @@ app.listen(port, () => {
     console.log('Server started on port ' + port)
 });
 
-app.use(router);
+app.use('/users', router);

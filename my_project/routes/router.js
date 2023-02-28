@@ -63,7 +63,7 @@ router.get('/dashboard', (req, res, next) => {
 });
 
 // get todo list 
-router.get('/todo', (req, res, next) => {
+router.get('/todo', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Todo.find({}, (err, todos) => {
         if (err) {
             res.send(err);
@@ -74,7 +74,7 @@ router.get('/todo', (req, res, next) => {
 });
 
 // get single todo 
-router.get('/todo/:id', (req, res, next) => {
+router.get('/todo/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Todo.findById(req.params.id, (err, todo) => {
         if (err) {
             res.send(err);
@@ -85,7 +85,7 @@ router.get('/todo/:id', (req, res, next) => {
 });
 
 // add todo 
-router.post('/todo/new', (req, res, next) => {
+router.post('/todo/new', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newTodo = new Todo ({
         title: req.body.title,
         description: req.body.description,
@@ -102,7 +102,7 @@ router.post('/todo/new', (req, res, next) => {
 });
 
 // update todo
-router.put('/todo/update/:id', (req, res, next) => {
+router.put('/todo/update/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     const todo = Todo.getTodoById(req.params.id, (err, todo) => {
         if (err) {
             res.json({success: false, msg:'Failed to update todo'});

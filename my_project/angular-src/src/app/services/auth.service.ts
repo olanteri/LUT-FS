@@ -26,17 +26,24 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/authenticate', user, {'headers': headers});
   }
 
-  getProfile() {
+  getUsersName() {
     this.loadToken();
     const headers = {
       'content-type': 'application/json',
       'Authorization': this.authToken
     }
-    // .set('Content-Type', 'application/json')
-    // .set('Authorization', 'ghfdh');
-    console.log(headers);
 
-    return this.http.get('http://localhost:3000/users/profile', {'headers': headers});
+    return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
+   }
+
+   getTodos() {
+    this.loadToken();
+    const headers = {
+      'content-type': 'application/json',
+      'Authorization': this.authToken
+    }
+
+    return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
    }
 
   storeUserData(token: string, user: any) {
