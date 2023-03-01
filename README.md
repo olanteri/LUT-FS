@@ -1,4 +1,4 @@
-# LUT-FS
+# LUT-FS - Olli Rönkkö
 LUT full-stack course
 
 # Instructions for my_project 'Todo App'
