@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TodolistComponent } from './components/todolist/todolist.component';
 import { ValidateService } from './services/validate.service';
 import { FlashMessagesModule } from 'flash-messages-angular';
@@ -15,15 +14,12 @@ import { FlashMessagesService } from 'flash-messages-angular';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
-import { UpdatetodoComponent } from './updatetodo/updatetodo.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
-  {path:'dashboard', component: DashboardComponent},
-  {path:'todo', component: TodolistComponent, canActivate:[AuthGuard]},
-  {path:'todo/:id', component: UpdatetodoComponent, canActivate:[AuthGuard]}
+  {path:'todo', component: TodolistComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -33,9 +29,7 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    DashboardComponent,
-    TodolistComponent,
-    UpdatetodoComponent
+    TodolistComponent
   ],
   imports: [
     BrowserModule,

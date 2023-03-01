@@ -3,7 +3,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { filter, Observable, of } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { Todo } from 'src/app/Todo';
 import { ValidateService } from 'src/app/services/validate.service';
 import { FlashMessagesService } from 'flash-messages-angular';
 
@@ -14,7 +13,7 @@ import { FlashMessagesService } from 'flash-messages-angular';
 })
 export class TodolistComponent implements OnInit {
   todos!: any[];
-  
+
   title!: String;
   description!: String;
   name!: String;
@@ -67,21 +66,24 @@ export class TodolistComponent implements OnInit {
   }
   
   deleteTodo(todo: any) {
-    this.authService.deleteTodo(todo._id).subscribe(todo => this.ngOnInit());
-    // console.log(todo._id);
-    // this.todos.forEach((obj, index) => {
-    //   if (obj._id == todo._id) {
-    //     this.todos.splice(index,1);
-    //   }
-    // })
+    this.authService.deleteTodo(todo).subscribe((data: any) => {
+      if (data.success) {
+        this.flashMessage.show("Todo deleted!", {cssClass: 'alert-success', timeout: 3000});
+        this.todos = this.todos.filter(item => item._id != todo._id);
+        this.ngOnInit();
+      } else {
+        this.flashMessage.show("Something went wrong", {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
   }
-
-  // updateStatus() {
-  //   let todo = {
-  //     _id: todo._id,
-  //     title: todo.title,
-
-  //   }
-  // }
+  
+  updateTodoStatus(todo: any) {
+    if (todo.isDone) {
+      todo.isDone = false
+    } else {
+      todo.isDone = true
+    }
+    this.authService.updateTodo(todo).subscribe(todo => this.ngOnInit());
+  }
 
 }

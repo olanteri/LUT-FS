@@ -57,11 +57,6 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
-// dashboard 
-router.get('/dashboard', (req, res, next) => {
-    res.send('DASHBOARD');
-});
-
 // get todo list 
 router.get('/todo', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Todo.find({}, (err, todos) => {
@@ -69,17 +64,6 @@ router.get('/todo', passport.authenticate('jwt', {session: false}), (req, res, n
             res.send(err);
         } else {
             res.json(todos);
-        }
-    });
-});
-
-// get single todo 
-router.get('/todo/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Todo.findById(req.params.id, (err, todo) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(todo);
         }
     });
 });
@@ -124,8 +108,8 @@ router.delete('/todo/:id', passport.authenticate('jwt', {session: false}), (req,
             res.json({success: false, msg:'Failed to delete todo'});
         } else {
             todo.remove();
+            res.json({success: true, msg:'Todo is deleted'});
         }
-        res.json({success: true, msg:'Todo is deleted'});
     });
 });
 

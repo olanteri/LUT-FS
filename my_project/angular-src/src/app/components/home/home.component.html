@@ -1,12 +1,13 @@
 <div class="jumbotron text-center" style="margin-bottom: 10%;">
     <h1>ToDo App</h1>
-    <p class="lead">Create, update, or manage your todos</p>
+    <p class="lead">Create and manage your tasks</p>
     <div>
-        <a class="btn btn-primary" [routerLink]="['/register']" style="margin-right: 1%;">Register</a> <a class="btn btn-dark" [routerLink]="['/login']">Login</a>
+        <a class="btn btn-primary" *ngIf="authService.tokenExpired()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" style="margin-right: 1%;">Register</a> 
+        <a class="btn btn-dark" *ngIf="authService.tokenExpired()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']">Login</a>
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="margin-bottom: 10%;">
     <div class="col-md-4">
         <h3>Requires registration</h3>
         <p>Only a verified user can access to content</p>
@@ -18,5 +19,15 @@
     <div class="col-md-4">
         <h3>Mark tasks done</h3>
         <p>After you have completed your todo, mark it as 'Done', to have a clear view of todos that need your actions</p>
+    </div>
+</div>
+<div *ngIf="!authService.tokenExpired()" class="row justify-vertical-center">
+    <div class="container" style="align-content: center; background-color: whitesmoke; width: 25%; height: auto; float: left; border-style: solid;" >
+        <h2 style="text-align: center; margin-bottom: 10%;"><b>Todos:</b></h2>
+        <h1 style="text-align: center;">{{notDone}}</h1>
+    </div>
+    <div class="container" style="align-content: center; background-color: blanchedalmond; width: 25%; height: auto; float: left; border-style: solid;" >
+        <h2 style="text-align: center; margin-bottom: 10%;"><b>Done tasks:</b></h2>
+        <h1 style="text-align: center;">{{done}}</h1>
     </div>
 </div>

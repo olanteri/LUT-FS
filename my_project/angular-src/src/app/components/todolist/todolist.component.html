@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h2 style="text-align: center;">List of Todos</h2>
+  <h2 style="text-align: center;">Board of Todos</h2>
 </div>
 <div>
   <h3>Create a new item</h3>
@@ -16,22 +16,39 @@
   </form>
 </div>
 
-<div class="container">
-  <div class="row">
-  <div class="col-md-3 mx-auto my-5" *ngFor="let todo of todos">
-    <div class="card" style="padding: 5%;">
-      <h4 style="text-align: center;"><b>{{todo.title}}</b></h4>
-      <p><i><u>Description:</u></i></p>
-      <p>- {{todo.description}}</p>
-      <p><i><u>AP for:</u></i></p> 
-      <p>{{todo.name}}</p>
-      <input type="button" class="btn btn-default pull-right" style="background-color: bisque;" value="Edit">
-      <input (click)="deleteTodo(todo)" type="button" class="btn btn-danger pull-right" value="Delete">
+<div class="align-content">
+  <div style="margin-top: 5%;">
+    <div class="container" style="align-content: center; background-color: whitesmoke; width: 50%; height: auto; float: left; border-style: solid;" >
+      <h3 style="text-align: center;">Needs actions</h3>
+      <div class="row">
+        <div class="col-md-4 mx-auto my-5" *ngFor="let todo of todos">
+          <div class="card" style="padding: 2%;" *ngIf="!todo.isDone">
+            <h4 style="text-align: center;"><b>{{todo.title}}</b></h4>
+            <p><i><u>Description:</u></i></p>
+            <p>- {{todo.description}}</p>
+            <p><i><u>AP for:</u></i></p> 
+            <p>{{todo.name}}</p>
+            <input (click)="updateTodoStatus(todo)" type="button" class="btn btn-success pull-right" value="Done">
+            <input (click)="deleteTodo(todo)" type="button" class="btn btn-danger pull-right" value="Delete">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="background-color: blanchedalmond; width: 50%; height: auto; float: left; border-style: solid;">
+    <h3 style="text-align: center;">Done</h3>
+    <div class="row">
+      <div class="col-md-4 mx-auto my-5" *ngFor="let todo of todos">
+      <div class="card" style="padding: 2%;"  *ngIf="todo.isDone">
+        <h4 style="text-align: center;"><b>{{todo.title}}</b></h4>
+        <p><i><u>Description:</u></i></p>
+        <p>- {{todo.description}}</p>
+        <p><i><u>AP for:</u></i></p> 
+        <p>{{todo.name}}</p>
+        <input (click)="updateTodoStatus(todo)" type="button" class="btn btn-warning pull-right" value="Undo">
+        <input (click)="deleteTodo(todo)" type="button" class="btn btn-danger pull-right" value="Delete">
+      </div>
     </div>
   </div>
 </div>
-</div>
-
-  
-
 

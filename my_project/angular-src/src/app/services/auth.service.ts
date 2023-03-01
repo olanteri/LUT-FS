@@ -42,25 +42,24 @@ export class AuthService {
   return this.http.get('http://localhost:3000/users/todo', {'headers': headers});
   }
 
-  deleteTodo(id: String) {
-    console.log(id);
+  deleteTodo(todo: {_id: any, title: String, description: String, name: String, isDone: boolean}) {
     this.loadToken();
     const headers = {
       'content-type': 'application/json',
       'Authorization': this.authToken
     }
 
-  return this.http.delete<String>('http://localhost:3000/users/todo/'+id, {'headers': headers});
+  return this.http.delete('http://localhost:3000/users/todo/'+todo._id, {'headers': headers});
   }
 
-  updateTodos(todo: {title: String, description: String, name: String, isDone: boolean}) {
+  updateTodo(todo: {_id: any, title: String, description: String, name: String, isDone: boolean}) {
     this.loadToken();
     const headers = {
       'content-type': 'application/json',
       'Authorization': this.authToken
     }
 
-  return this.http.put('http://localhost:3000/users/todo/:id', todo, {'headers': headers});
+  return this.http.put('http://localhost:3000/users/todo/update/'+todo._id, todo, {'headers': headers});
   }
 
   saveTodo(todo: {title: String, description: String, name: String, isDone: boolean}) {
@@ -70,7 +69,7 @@ export class AuthService {
       'Authorization': this.authToken
     }
 
-  return this.http.post('http://localhost:3000/users/todo/', todo, {'headers': headers});
+  return this.http.post('http://localhost:3000/users/todo', todo, {'headers': headers});
   }
 
   storeUserData(token: string, user: any) {
